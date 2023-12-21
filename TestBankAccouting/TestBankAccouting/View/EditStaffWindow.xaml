@@ -1,0 +1,181 @@
+﻿<Window x:Class="TestBankAccouting.View.EditStaffWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestBankAccouting.View"
+        mc:Ignorable="d"
+        Title="Форма изменения"
+        Height="480"
+        Width="340"
+        ResizeMode="NoResize">
+    
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width ="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Cотрудник"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.ColumnSpan="3"/>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3">
+
+            <TextBlock Text="Фамилия"
+                       VerticalAlignment="Center"/>
+
+            <TextBox x:Name="textLastName"
+                     Margin="0, 2"
+                     Height="20"
+                     MaxLength="20"
+                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                            Path=SaveDataGridStaff.SelectedItem.LastName,
+                            Mode=OneTime}"
+                     PreviewTextInput="ValidationInputTextBox"
+                     PreviewKeyDown="ProhibitingSpaceTextBox"/>
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="5"
+                    Grid.ColumnSpan="3">
+
+            <TextBlock Text="Имя"
+                       VerticalAlignment="Center"/>
+
+            <TextBox x:Name="textFirstName"
+                     Margin="0, 2"
+                     Height="20"
+                     MaxLength="20"
+                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                            Path=SaveDataGridStaff.SelectedItem.FirstName,
+                            Mode=OneTime}"
+                     PreviewTextInput="ValidationInputTextBox"
+                     PreviewKeyDown="ProhibitingSpaceTextBox"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="7"
+                    Grid.ColumnSpan="3">
+
+            <TextBlock Text="Отчество"
+                       VerticalAlignment="Center"/>
+
+            <TextBox x:Name="textMiddleName" 
+                     Margin="0, 2"
+                     Height="20"
+                     MaxLength="20"
+                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                            Path=SaveDataGridStaff.SelectedItem.MiddleName,
+                            Mode=OneTime}"
+                     PreviewTextInput="ValidationInputTextBox"
+                     PreviewKeyDown="ProhibitingSpaceTextBox"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+            Grid.Row="9"
+            Grid.ColumnSpan="3">
+
+            <TextBlock Text="Должность"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox x:Name="comboBoxPost"
+                      Margin="0, 2"
+                      Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                             Path=SaveDataGridStaff.SelectedItem.Post,
+                             Mode=OneTime}">
+
+                <ComboBoxItem Content="Аудитор"/>
+                <ComboBoxItem Content="Банкир"/>
+                <ComboBoxItem Content="Бухгалтер"/>
+                <ComboBoxItem Content="Кассир"/>
+                <ComboBoxItem Content="Консультант"/>
+                <ComboBoxItem Content="Управляющий"/>
+
+            </ComboBox>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="11"
+                    Grid.ColumnSpan="3">
+
+            <TextBlock Text="Телефон"
+                       VerticalAlignment="Center"/>
+
+            <TextBox x:Name="textNumberPhone"
+                     Margin="0, 2"
+                     Height="20"
+                     MaxLength="11"
+                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                           Path=SaveDataGridStaff.SelectedItem.NumberPhone,
+                           Mode=OneTime}"
+                     PreviewTextInput="ValidationInputTextBoxNumberPhone"
+                     PreviewKeyDown="ProhibitingSpaceTextBox"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="13"
+                    Grid.ColumnSpan="3">
+
+            <TextBlock Text="Пол"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox x:Name="comboBoxGender"
+                      Margin="0, 2"
+                      Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                             Path=SaveDataGridStaff.SelectedItem.Gender,
+                             Mode=OneTime}">
+
+                <ComboBoxItem Content="М"/>
+                <ComboBoxItem Content="Ж"/>
+
+            </ComboBox>
+
+
+        </StackPanel>
+
+        <Button Content="Сохранить"
+                Grid.Column="2"
+                Grid.Row="15"
+                FontSize="14"
+                Click="EditStaffToDataGrid"/>
+
+    </Grid>
+    
+</Window>
