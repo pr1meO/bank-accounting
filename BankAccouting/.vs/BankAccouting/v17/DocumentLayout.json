@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\u043B\\source\\repos\\MyProject\\BankAccouting\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2AE841CD-259F-4258-9739-6823E24A9744}|BankAccouting\\BankAccouting.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\u043B\\source\\repos\\myproject\\bankaccouting\\bankaccouting\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AE841CD-259F-4258-9739-6823E24A9744}|BankAccouting\\BankAccouting.csproj|solutionrelative:bankaccouting\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\u043B\\source\\repos\\MyProject\\BankAccouting\\BankAccouting\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "BankAccouting\\Models\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\u043B\\source\\repos\\MyProject\\BankAccouting\\BankAccouting\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "BankAccouting\\Models\\AppDbContext.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAzwA8AAAB2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-19T16:07:44.239Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

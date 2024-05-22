@@ -1,0 +1,708 @@
+﻿<Application x:Class="BankAccouting.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+             xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit">
+
+    <Application.Resources>
+
+        <!--#region Цвета-->
+        <!--Colors Of The Elements-->
+        <SolidColorBrush x:Key="TextBlock.Foreground" Color="#121518"/>
+        <SolidColorBrush x:Key="TextBlock.Foreground.Placeholder" Color="#B8B9BA"/>
+
+        <SolidColorBrush x:Key="TextBox.Default.Background" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextBox.Default.Foreground" Color="#121518"/>
+        <SolidColorBrush x:Key="TextBox.Default.BorderBrush" Color="#623ED0"/>
+
+        <SolidColorBrush x:Key="Button.Default.Background" Color="#623ED0"/>
+        <SolidColorBrush x:Key="Button.Default.Foreground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#7B5CD6"/>
+
+        <!--Colors ComboBox-->
+        <SolidColorBrush x:Key="ComboBox.Default.Background" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="ComboBox.Default.BorderBrush" Color="#623ED0"/>
+        <SolidColorBrush x:Key="ComboBox.Default.Foreground" Color="#121518"/>
+        <SolidColorBrush x:Key="ComboBox.Default.Glyph" Color="#623ED0"/>
+
+        <SolidColorBrush x:Key="ComboBox.MouseOver.BorderBrush" Color="#7B5CD6"/>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#7B5CD6"/>
+
+        <SolidColorBrush x:Key="ComboBox.DropDownBorder.Default.Background" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="ComboBox.DropDownBorder.Default.BorderBrush" Color="#623ED0"/>
+
+        <!--Colors ItemContainerStyle-->
+        <SolidColorBrush x:Key="ItemContainerStyle.IsMouseOver.Background" Color="#E5DEF7"/>
+        <SolidColorBrush x:Key="ItemContainerStyle.IsMouseOver.BorderBrush" Color="#BDAEEB"/>
+        <!--#endregion-->
+
+        <Style TargetType="{x:Type Button}" x:Key="iconButton">
+            <Setter Property="Background" Value="#623ED0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#7B5CD6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--#region Поля ввода пароля-->
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="{StaticResource TextBox.Default.Background}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBox.Default.Foreground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Default.BorderBrush}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Padding" Value="7 6 20 6"/>
+
+            <!--CornerRadius Input TextBox-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="borderTextBox" 
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1" 
+                    CornerRadius="7"
+                    SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                              Focusable="False" 
+                              HorizontalScrollBarVisibility="Hidden" 
+                              VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderThickness" TargetName="borderTextBox" Value="2"/>
+                                <Setter Property="Padding" Value="6 5 1 6"/>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderThickness" TargetName="borderTextBox" Value="2"/>
+                                <Setter Property="Padding" Value="6 5 1 6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--endregion-->
+
+        <!--#region Заголовок отдельного окна-->
+        <!--Style Header TextBlock-->
+        <Style x:Key="headerTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextBlock.Foreground}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Placeholder отдельного окна-->
+        <!--Style Placeholder TextBlock-->
+        <Style x:Key="placeholderTextBox" TargetType="TextBlock">
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Margin" Value="10 0 10 0"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBlock.Foreground.Placeholder}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Поля ввода отдельного окна-->
+        <!--Style TextBox-->
+        <Style x:Key="inputTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TextBox.Default.Background}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBox.Default.Foreground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Default.BorderBrush}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Padding" Value="7 5 20 6"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+
+            <!--CornerRadius Input TextBox-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="borderTextBox" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1" 
+                                CornerRadius="7"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False" 
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderThickness" TargetName="borderTextBox" Value="2"/>
+                                <Setter Property="Padding" Value="6 4 1 6"/>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderThickness" TargetName="borderTextBox" Value="2"/>
+                                <Setter Property="Padding" Value="6 4 1 6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Поля ввода телефона отдельного окна-->
+        <!--Style Input Phone-->
+        <Style TargetType="{x:Type tk:MaskedTextBox}">
+            <Setter Property="Background" Value="{DynamicResource TextBox.Default.Background}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBox.Default.Foreground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.Default.BorderBrush}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Padding" Value="7 5 0 6"/>
+            <Setter Property="MaxLength" Value="18"/>
+            <Setter Property="Mask" Value="+7 (000) 000-00-00"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+
+            <!--CornerRadius Input TextBox-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type tk:MaskedTextBox}">
+                        <Border x:Name="borderTextBox" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1" 
+                                CornerRadius="7"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False" 
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderThickness" TargetName="borderTextBox" Value="2"/>
+                                <Setter Property="Padding" Value="6 4 1 6"/>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderThickness" TargetName="borderTextBox" Value="2"/>
+                                <Setter Property="Padding" Value="6 4 1 6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Кнопка отдельного окна-->
+        <!--Style Button-->
+        <Style TargetType="Button" x:Key="newWindowButton">
+            <Setter Property="Background" Value="{StaticResource Button.Default.Background}"/>
+            <Setter Property="Foreground" Value="{StaticResource Button.Default.Foreground}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <!--CornerRadius Button-->
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <!--Triggers Button-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Стиль ComboBox-->
+        <!--Управление ComboBox через TAB-->
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" 
+                                   StrokeDashArray="1 2" 
+                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
+                                   SnapsToDevicePixels="true"
+                                   StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Форма, цвет и триггеры ComboBox-->
+        <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="ClickMode" Value="Press"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="templateRoot" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="7"
+                                SnapsToDevicePixels="true">
+                            <Border x:Name="splitBorder" 
+                                    HorizontalAlignment="Right" 
+                                    Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+                                <Path x:Name="arrow" 
+                                      Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
+                                      Fill="{StaticResource ComboBox.MouseOver.Glyph}"
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                            </Border>
+                        </Border>
+
+                        <!--Триггер ComboBox-->
+                        <ControlTemplate.Triggers>
+                            <!--Триггер при наведении-->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderThickness" TargetName="templateRoot" Value="2"/>
+                            </Trigger>
+
+                            <!--Триггер при нажатии-->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderThickness" TargetName="templateRoot" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Шаблон dropDownBorder (форма и цвет)-->
+        <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
+            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" 
+                                      Width="0"/>
+                </Grid.ColumnDefinitions>
+
+                <Popup x:Name="PART_Popup" 
+                       Grid.ColumnSpan="2"
+                       AllowsTransparency="true" 
+                       IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                       Margin="1" 
+                       Placement="Bottom" 
+                       PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                    <theme:SystemDropShadowChrome x:Name="shadow" 
+                                                  Color="Transparent" 
+                                                  MinWidth="{Binding ActualWidth, ElementName=templateRoot}" 
+                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                        <Border x:Name="dropDownBorder" 
+                                Background="{StaticResource ComboBox.DropDownBorder.Default.Background}" 
+                                BorderBrush="{StaticResource ComboBox.DropDownBorder.Default.BorderBrush}"
+                                CornerRadius="7"
+                                BorderThickness="1"
+                                Margin="0 5 0 0"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="DropDownScrollViewer">
+                                <Grid x:Name="grid" 
+                                      RenderOptions.ClearTypeHint="Enabled">
+                                    <Canvas x:Name="canvas" 
+                                            Height="0" 
+                                            VerticalAlignment="Top" 
+                                            Width="0"
+                                            Visibility="Collapsed">
+                                        <Rectangle x:Name="opaqueRect" 
+                                                   Fill="{Binding Background, ElementName=dropDownBorder}" 
+                                                   Height="{Binding ActualHeight, ElementName=dropDownBorder}" 
+                                                   Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
+                                    </Canvas>
+                                    <ItemsPresenter x:Name="ItemsPresenter" 
+                                                    KeyboardNavigation.DirectionalNavigation="Contained" 
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </theme:SystemDropShadowChrome>
+                </Popup>
+                <ToggleButton x:Name="toggleButton" 
+                              Background="{TemplateBinding Background}" 
+                              BorderBrush="{TemplateBinding BorderBrush}" 
+                              BorderThickness="{TemplateBinding BorderThickness}" 
+                              Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                              Style="{StaticResource ComboBoxToggleButton}"/>
+                <ContentPresenter x:Name="contentPresenter" 
+                                  ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" 
+                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                  Content="{TemplateBinding SelectionBoxItem}" 
+                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                  IsHitTestVisible="false" Margin="{TemplateBinding Padding}" 
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <!--Шаблон ItemContainerStyle (форма и цвет)-->
+        <ControlTemplate x:Key="ItemContainerStyle" TargetType="ComboBoxItem">
+            <Border x:Name="brd" 
+                    Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Margin="1"
+                    CornerRadius="7">
+                <ContentPresenter Margin="{TemplateBinding Padding}"/>
+            </Border>
+
+            <!--ТриггерItemContainerStyle-->
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="brd" Value="{StaticResource ItemContainerStyle.IsMouseOver.Background}"/>
+                    <Setter Property="BorderThickness" TargetName="brd" Value="1"/>
+                    <Setter Property="BorderBrush" TargetName="brd" Value="{StaticResource ItemContainerStyle.IsMouseOver.BorderBrush}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!--Стиль для ComboBox-->
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource ComboBox.Default.Background}"/>
+            <Setter Property="Foreground" Value="{StaticResource ComboBox.Default.Foreground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Default.BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Padding" Value="11 7 0 6"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <!--Style ItemContainerStyle-->
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Padding" Value="8 5 0 0"/>
+                        <Setter Property="Template" Value="{StaticResource ItemContainerStyle}"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEditable" Value="true">
+                    <Setter Property="IsTabStop" Value="false"/>
+                    <Setter Property="Padding" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <!--#endregion-->
+        
+        
+
+        <!--#region Кнопка Меню-->
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#D0C0FF"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <!--CornerRadius Button-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#7B5CD6"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#7B5CD6"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Кнопка Добавить-->
+        <Style TargetType="{x:Type Button}" x:Key="addButton">
+            <Setter Property="Background" Value="#6741D9"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#7B5CD6"/>
+                                <Setter Property="Foreground" Value="#ffffff" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region DataGrid-->
+        <!--Общий стиль таблицы-->
+        <Style TargetType="{x:Type DataGrid}" x:Key="table">
+            <!--Настройка фона DataGrid-->
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#222528"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <!--Настройки текста в заголовках-->
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+
+            <!--Выбор элемента в DataGrid-->
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+
+            <!--Ограничение для пользователя-->
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="ColumnWidth" Value="*"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+
+            <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGrid}">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Padding="{TemplateBinding Padding}" 
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="DG_ScrollViewer" 
+                                          Focusable="false">
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                        <Grid>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Button Command="{x:Static DataGrid.SelectAllCommand}" 
+                                                    Focusable="false" 
+                                                    Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}" 
+                                                    Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                                    Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
+                                                                            Grid.Column="1" 
+                                                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" 
+                                                                    CanContentScroll="{TemplateBinding CanContentScroll}" 
+                                                                    Grid.ColumnSpan="2" 
+                                                                    Grid.Row="1"/>
+
+                                            <ScrollBar x:Name="PART_VerticalScrollBar" 
+                                                       Grid.Column="2" 
+                                                       Maximum="{TemplateBinding ScrollableHeight}" 
+                                                       Orientation="Vertical" 
+                                                       Grid.Row="1" 
+                                                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                                                       ViewportSize="{TemplateBinding ViewportHeight}" 
+                                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+
+                                            <Grid Grid.Column="1" Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <ScrollBar x:Name="PART_HorizontalScrollBar" 
+                                                           Grid.Column="1" 
+                                                           Maximum="{TemplateBinding ScrollableWidth}" 
+                                                           Orientation="Horizontal" 
+                                                           Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                                                           ViewportSize="{TemplateBinding ViewportWidth}" 
+                                                           Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                            </Grid>
+
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsGrouping" Value="true"/>
+                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                </MultiTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <!--Название столбцов-->
+        <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="columnHeader">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#69717D"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 6"/>
+        </Style>
+
+        <!--Ячейки таблицы-->
+        <Style TargetType="{x:Type DataGridRow}" x:Key="rowStyle">
+            <Setter Property="Margin" Value="0 5 0 0" />
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                        <Border x:Name="DGR_Border" 
+                                Padding ="0 6" 
+                                CornerRadius="5" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="0" 
+                                SnapsToDevicePixels="True">
+
+                            <SelectiveScrollingGrid>
+                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </SelectiveScrollingGrid.ColumnDefinitions>
+
+                                <SelectiveScrollingGrid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </SelectiveScrollingGrid.RowDefinitions>
+
+                                <DataGridCellsPresenter Grid.Column="1" 
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}" 
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <DataGridDetailsPresenter Grid.Column="1" 
+                                                          Grid.Row="1" 
+                                                          SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                                          Visibility="{TemplateBinding DetailsVisibility}"/>
+                                <DataGridRowHeader Grid.RowSpan="2" 
+                                                   SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" 
+                                                   Visibility="{Binding HeadersVisibility, Converter={x:Static DataGrid.HeadersVisibilityConverter}, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                            </SelectiveScrollingGrid>
+
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#623ED0"/>
+                    <Setter Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#623ED0"/>
+                    <Setter Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--Содержимое ячейки-->
+        <Style TargetType="{x:Type DataGridCell}" x:Key="cellStyle">
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderThickness="3" 
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+    </Application.Resources>
+    
+</Application>

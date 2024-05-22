@@ -1,0 +1,218 @@
+﻿<Window x:Class="BankAccouting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="480"
+        Width="850">
+
+    <Border CornerRadius="30"
+            Background="#EFF2F7"
+            MouseDown="WindowDragMove">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="3"
+                    Grid.Row="1" 
+                    Style="{StaticResource iconButton}"
+                    Click="Minimize">
+
+                <Path Fill="White"
+                      Stretch="Uniform"
+                      Margin="6">
+                    <Path.Data>
+                        <GeometryGroup>
+                            <PathGeometry Figures="M16 13H8a1 1 0 1 1 0-2h8a1 1 0 1 1 0 2Z"/>
+                        </GeometryGroup>
+                    </Path.Data>
+                </Path>
+
+            </Button>
+
+            <Button Grid.Column="5"
+                    Grid.Row="1"
+                    Style="{StaticResource iconButton}"
+                    Click="Close">
+
+                <Path Fill="White"
+                      Stretch="Fill"
+                      Margin="6">
+                    <Path.Data>
+                        <GeometryGroup>
+                            <PathGeometry Figures="M16.3 7.7a.99.99 0 0 1 0 1.4L13.4 12l2.9 2.9a.99.99 0 1 1-1.4 1.4L12 13.4l-2.9 2.9a.99.99 0 1 1-1.4-1.4l2.9-2.9-2.9-2.9a.99.99 0 1 1 1.4-1.4l2.9 2.9 2.9-2.9a.99.99 0 0 1 1.4 0Z"/>
+                        </GeometryGroup>
+                    </Path.Data>
+                </Path>
+            </Button>
+
+            <Border Grid.Column="0"
+                    Grid.Row="3"
+                    Grid.RowSpan="6"
+                    CornerRadius="0 50 0 30"
+                    Background="#623ED0">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="15"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Аватарка-->
+                    <Border Grid.Column="1" 
+                            Grid.Row="1" 
+                            Grid.RowSpan="3"
+                            Background="White"
+                            CornerRadius="100">
+
+                        <Path Fill="#623ED0"
+                              Stretch="Fill"
+                              Margin="3">
+
+                            <Path.Data>
+                                <GeometryGroup>
+                                    <PathGeometry Figures="M45.834 25.218a20.834 20.834 0 1 1-41.667 0 20.834 20.834 0 0 1 41.667 0Zm-6.647 8.169a.837.837 0 0 0-.834-.832h-.98v-1.01a.837.837 0 0 0-.83-.832h-1.448V18.984h2.279a1.042 1.042 0 0 0 .415-2l-12.373-5.363a1.042 1.042 0 0 0-.83 0l-12.375 5.363a1.042 1.042 0 0 0 .415 2h2.277v11.73h-1.445a.837.837 0 0 0-.832.83v1.011h-.979a.837.837 0 0 0-.834.832v1.008h28.374v-1.008Zm-22.2-12.455h3.953v9.781h-3.953v-9.781ZM32.353 16.9H17.647L25 13.716l7.353 3.184Zm-9.33 4.032h3.953v9.781h-3.95l-.002-9.781Zm6.038 0h3.952v9.781h-3.952v-9.781Z"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                        </Path>
+
+                    </Border>
+
+                    <!--Имя и Фамилия сотрудника-->
+                    <TextBlock x:Name="staffName"
+                               Grid.Column="3"
+                               Grid.Row="2"
+                               TextWrapping="Wrap"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               FontFamily="Calibri"
+                               FontSize="16"
+                               VerticalAlignment="Center"/>
+
+                    <!--Должность сотрудника-->
+                    <TextBlock x:Name="staffRole"
+                               Grid.Column="3"
+                               Grid.Row="3"
+                               Foreground="#D0BFFF"
+                               FontWeight="Bold"
+                               FontFamily="Calibri"
+                               FontSize="10"
+                               VerticalAlignment="Bottom"/>
+
+                    <!--Разделитель-->
+                    <Border Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="5"
+                            Background="#7E5FDC"
+                            CornerRadius="1"/>
+
+                    <!--Кнопки Меню-->
+                    <RadioButton Grid.Column="1" 
+                                 Grid.ColumnSpan="3" 
+                                 Grid.Row="7"
+                                 IsChecked="True" 
+                                 Click="OpenStaffPage">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Сотрудники"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Grid.Column="1" 
+                                 Grid.ColumnSpan="3" 
+                                 Grid.Row="9" 
+                                 Click="OpenClientPage">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Клиенты"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Grid.Column="1" 
+                                 Grid.ColumnSpan="3"
+                                 Grid.Row="11" 
+                                 Click="OpenAccountPage">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Счета"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Grid.Column="1" 
+                                 Grid.ColumnSpan="3" 
+                                 Grid.Row="13" 
+                                 Click="OpenContractPage">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Договоры"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                    <RadioButton Grid.Column="1" 
+                                Grid.ColumnSpan="3" 
+                                Grid.Row="16" Click="OpenLoginWindow">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Выйти"/>
+                        </StackPanel>
+
+                    </RadioButton>
+
+                </Grid>
+
+            </Border>
+
+            <Frame x:Name="frame"
+                   Grid.Column="2"
+                   Grid.Row="3"
+                   Grid.ColumnSpan="4"
+                   NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+
+    </Border>
+
+</Window>
