@@ -16,3 +16,4 @@
 - **СУБД**: PostgreSQL
 
 ## 🖥️ UI/UX:
+![image](https://github.com/user-attachments/assets/ddb41769-5c04-4254-a9a0-85257507ad42)
